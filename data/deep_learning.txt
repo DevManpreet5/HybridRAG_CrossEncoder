@@ -1,0 +1,4 @@
+
+Deep learning is a subfield of machine learning concerned with algorithms inspired by the structure and function of the brain called artificial neural networks. 
+It has revolutionized areas like computer vision, natural language processing, and speech recognition.
+One of the major breakthroughs in deep learning came with the introduction of convolutional neural networks (CNNs) for image-related tasks.

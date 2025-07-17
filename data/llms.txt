@@ -1,0 +1,4 @@
+
+Large Language Models (LLMs) like GPT and Mixtral-8x7B-Instruct are pre-trained on vast corpora of text and can perform a variety of tasks such as summarization, translation, and question answering.
+These models rely on the transformer architecture and are fine-tuned for specific tasks.
+Retrieval-Augmented Generation (RAG) is a popular approach to improve factual correctness by combining retrieval techniques with LLMs.

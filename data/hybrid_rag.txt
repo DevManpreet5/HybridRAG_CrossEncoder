@@ -1,0 +1,4 @@
+
+A hybrid RAG system combines symbolic retrieval (like BM25) with neural dense retrieval and re-ranking using models like CrossEncoder.
+This hybrid approach leverages the precision of symbolic methods and the contextual awareness of neural models.
+It is particularly useful in enterprise applications where document relevance and correctness are critical.
