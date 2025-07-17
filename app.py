@@ -1,3 +1,5 @@
+from sklearn.preprocessing import MinMaxScaler
+import numpy as np
 import streamlit as st
 import os
 import uuid
@@ -37,13 +39,18 @@ elif st.button("Index Preloaded Documents"):
 
 query = st.text_input("Ask a question")
 if query:
-    contexts = retriever.retrieve(query, k=3)
+    top_results = retriever.retrieve(query, k=3, return_scores=True)
+    contexts, scores = zip(*top_results)
+    scaler = MinMaxScaler()
+    scores_np = np.array(scores).reshape(-1, 1)
+    norm_scores = scaler.fit_transform(scores_np).flatten()
+
     prompt = format_prompt(query, contexts)
     answer = complete(prompt)
 
     st.subheader("Answer")
     st.write(answer)
 
-    st.subheader("Top Contexts")
-    for idx, context in enumerate(contexts):
-        st.markdown(f"**Context {idx+1}:**\n{context}")
+    st.subheader("Top Contexts with Scores")
+    for idx, (context, norm_score) in enumerate(zip(contexts, norm_scores)):
+        st.markdown(f"**Context {idx+1} (Score: {norm_score:.4f}):**\n{context}")

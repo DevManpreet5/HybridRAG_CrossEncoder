@@ -22,7 +22,7 @@ class HybridRetriever:
         docs = [Document(page_content=chunk, metadata={"id": i}) for i, chunk in enumerate(chunks)]
         vectorstore.add_documents(docs)
 
-    def retrieve(self, query, k=5):
+    def retrieve(self, query, k=5, return_scores=False):
         bm25_hits = self.bm25.get_top_n(query.lower().split(), self.texts, n=k)
         docs = vectorstore.similarity_search(query, k=k)
         vector_hits = [doc.page_content for doc in docs]
@@ -31,6 +31,11 @@ class HybridRetriever:
         pairs = [(query, text) for text in candidates]
         scores = self.cross_encoder.predict(pairs)
         reranked = sorted(zip(candidates, scores), key=lambda x: x[1], reverse=True)
-        return [text for text, _ in reranked[:k]]
+    
+        if return_scores:
+            return reranked[:k]  
+        else:
+            return [text for text, _ in reranked[:k]]
+
 
 retriever = HybridRetriever()
